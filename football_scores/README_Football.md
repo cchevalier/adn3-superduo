@@ -21,6 +21,7 @@ See this [Gist](https://gist.github.com/igortrncic/5058e49a8204e3b8a657)
         
         
 ### Required Components   
+
 ####RC1.  Football Scores can be displayed in a widget.  
     
 ####RC2.  Football Scores app has content descriptions for all buttons.  
