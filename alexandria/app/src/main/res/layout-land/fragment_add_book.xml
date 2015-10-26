@@ -8,7 +8,19 @@
         android:layout_height="fill_parent"
         android:layout_gravity="left|center_vertical">
 
+        <TextView
+            android:id="@+id/network_indicator"
+            android:text="@string/network_off"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:gravity="center|top"
+            android:layout_gravity="center_horizontal"
+            />
+
+
         <EditText
+            android:layout_below="@id/network_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -21,10 +33,10 @@
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
             android:maxLines="1"
-            android:layout_marginTop="30dp"
-            android:layout_alignParentTop="true"
+            android:paddingTop="30dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            />
 
         <Button
             android:layout_width="wrap_content"

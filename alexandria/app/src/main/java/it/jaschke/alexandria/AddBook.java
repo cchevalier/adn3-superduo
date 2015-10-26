@@ -14,6 +14,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,9 +28,13 @@ import it.jaschke.alexandria.services.DownloadImage;
 
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
-    private EditText ean;
-    private final int LOADER_ID = 1;
+
     private View rootView;
+    private TextView network_indicator;
+    private EditText ean;
+    private Button scan_button;
+
+    private final int LOADER_ID = 1;
     private final String EAN_CONTENT="eanContent";
     private static final String SCAN_FORMAT = "scanFormat";
     private static final String SCAN_CONTENTS = "scanContents";
@@ -54,7 +59,17 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
+
+        network_indicator = (TextView) rootView.findViewById(R.id.network_indicator);
         ean = (EditText) rootView.findViewById(R.id.ean);
+        scan_button = (Button) rootView.findViewById(R.id.scan_button);
+
+        if (Utilities.isNetworkAvailable(getActivity())) {
+            network_indicator.setVisibility(View.GONE);
+        } else {
+            ean.setVisibility(View.GONE);
+            scan_button.setVisibility(View.GONE);
+        }
 
         ean.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,12 +97,17 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 Intent bookIntent = new Intent(getActivity(), BookService.class);
                 bookIntent.putExtra(BookService.EAN, ean);
                 bookIntent.setAction(BookService.FETCH_BOOK);
-                getActivity().startService(bookIntent);
-                AddBook.this.restartLoader();
+                if (Utilities.isNetworkAvailable(getActivity())) {
+                    getActivity().startService(bookIntent);
+                    AddBook.this.restartLoader();
+                } else {
+                    Toast.makeText(getActivity(), "No Network", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        rootView.findViewById(R.id.scan_button).setOnClickListener(new View.OnClickListener() {
+
+        scan_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // This is the callback method that the system will invoke when your button is
