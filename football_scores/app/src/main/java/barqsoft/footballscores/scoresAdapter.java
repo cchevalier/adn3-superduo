@@ -53,8 +53,13 @@ public class scoresAdapter extends CursorAdapter
         mHolder.home_crest.setImageResource(Utilies.getTeamCrestByTeamName(
                 cursor.getString(COL_HOME)));
         mHolder.away_crest.setImageResource(Utilies.getTeamCrestByTeamName(
-                cursor.getString(COL_AWAY)
-        ));
+                cursor.getString(COL_AWAY)));
+
+        // A11y: Both home_crest and away_crest imageView are considered decorative as teams name
+        //       are provided just below. Therefore setContentDescription is set to null
+        mHolder.home_crest.setContentDescription(null);
+        mHolder.away_crest.setContentDescription(null);
+
         //Log.v(FetchScoreTask.LOG_TAG,mHolder.home_name.getText() + " Vs. " + mHolder.away_name.getText() +" id " + String.valueOf(mHolder.match_id));
         //Log.v(FetchScoreTask.LOG_TAG,String.valueOf(detail_match_id));
         LayoutInflater vi = (LayoutInflater) context.getApplicationContext()
