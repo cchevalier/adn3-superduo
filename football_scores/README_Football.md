@@ -27,10 +27,14 @@ See required component RC2 below.
 ####RC1.  Football Scores can be displayed in a widget.  
     
 ####RC2.  Football Scores app has content descriptions for all buttons.  
+FIX:  
+- only 2 imageViews in scores_list_item.xml had no content description.
 
-- FIX: only 2 imageViews in scores_list_item.xml had no content description.
-
-    
 ####RC3.  Football Scores app supports layout mirroring.  
+FIX:  
+- supportsRTL added to AndroidManifest.xml  
+- xxxLeft  -> xxxLeft + xxxStart in layouts files  
+- xxxRight -> xxxLeft + xxxEnd  
+
     
 
