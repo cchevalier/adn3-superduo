@@ -42,8 +42,8 @@ public class myFetchService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent)
     {
-        getData("n2");
-        getData("p2");
+        getData("n3");
+        getData("p3");
 
         return;
     }
@@ -68,7 +68,7 @@ public class myFetchService extends IntentService
             m_connection.setRequestMethod("GET");
             m_connection.addRequestProperty("X-Auth-Token", API_KEY);
             m_connection.connect();
-            Log.d(LOG_TAG, m_connection.toString() );
+//            Log.d(LOG_TAG, m_connection.toString() );
 
             // Read the input stream into a String
             InputStream inputStream = m_connection.getInputStream();
