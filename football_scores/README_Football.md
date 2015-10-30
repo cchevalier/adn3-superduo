@@ -18,9 +18,10 @@ See this [Gist](https://gist.github.com/igortrncic/5058e49a8204e3b8a657)
   
 See required component RC2 below.
     
-####UF4.  Jennie says: “I like the functionality of this app, but I hate having to open it up every time I want to check for a new game. Can’t you put something on the home screen for us?”
-    
-        
+####UF4.  Jennie says: “I like the functionality of this app, but I hate having to open it up every time I want to check for a new game. Can’t you put something on the home screen for us?”  
+  
+See required component RC1 below.
+
         
 ### Required Components   
 
@@ -37,4 +38,8 @@ FIX:
 - xxxRight -> xxxLeft + xxxEnd  
 
     
+## Additional References
 
+### Android Developers Blog  
+- [Native RTL support in Android 4.2](http://android-developers.blogspot.in/2013/03/native-rtl-support-in-android-42.html)  
+- [Accessibility: Are You Serving All Your Users?](http://android-developers.blogspot.dk/2012/04/accessibility-are-you-serving-all-your.html)  
