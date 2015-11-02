@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
-import barqsoft.footballscores.db.DatabaseContract;
-import barqsoft.footballscores.db.ScoresDBHelper;
-
 /**
  * Created by yehya khaled on 2/25/2015.
  */
@@ -76,14 +73,19 @@ public class ScoresProvider extends ContentProvider
         final int match = muriMatcher.match(uri);
 
         switch (match) {
+
             case MATCHES:
                 return DatabaseContract.scores_table.CONTENT_TYPE;
+
             case MATCHES_WITH_LEAGUE:
                 return DatabaseContract.scores_table.CONTENT_TYPE;
+
             case MATCHES_WITH_ID:
                 return DatabaseContract.scores_table.CONTENT_ITEM_TYPE;
+
             case MATCHES_WITH_DATE:
                 return DatabaseContract.scores_table.CONTENT_TYPE;
+
             default:
                 throw new UnsupportedOperationException("Unknown uri :" + uri);
         }
@@ -101,12 +103,15 @@ public class ScoresProvider extends ContentProvider
         //Log.v(FetchScoreTask.LOG_TAG,SCORES_BY_LEAGUE);
         //Log.v(FetchScoreTask.LOG_TAG,selectionArgs[0]);
         //Log.v(FetchScoreTask.LOG_TAG,String.valueOf(match));
+
         switch (match) {
+
             case MATCHES:
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DatabaseContract.SCORES_TABLE,
                         projection, null, null, null, null, sortOrder);
                 break;
+
             case MATCHES_WITH_DATE:
                 //Log.v(FetchScoreTask.LOG_TAG,selectionArgs[1]);
                 //Log.v(FetchScoreTask.LOG_TAG,selectionArgs[2]);
@@ -114,16 +119,19 @@ public class ScoresProvider extends ContentProvider
                         DatabaseContract.SCORES_TABLE,
                         projection, SCORES_BY_DATE, selectionArgs, null, null, sortOrder);
                 break;
+
             case MATCHES_WITH_ID:
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DatabaseContract.SCORES_TABLE,
                         projection, SCORES_BY_ID, selectionArgs, null, null, sortOrder);
                 break;
+
             case MATCHES_WITH_LEAGUE:
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DatabaseContract.SCORES_TABLE,
                         projection, SCORES_BY_LEAGUE, selectionArgs, null, null, sortOrder);
                 break;
+
             default:
                 throw new UnsupportedOperationException("Unknown Uri" + uri);
         }
@@ -144,7 +152,9 @@ public class ScoresProvider extends ContentProvider
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         //db.delete(DatabaseContract.SCORES_TABLE,null,null);
         //Log.v(FetchScoreTask.LOG_TAG,String.valueOf(muriMatcher.match(uri)));
+
         switch (match_uri(uri)) {
+
             case MATCHES:
                 db.beginTransaction();
                 int returncount = 0;
@@ -162,6 +172,7 @@ public class ScoresProvider extends ContentProvider
                 }
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returncount;
+
             default:
                 return super.bulkInsert(uri, values);
         }
