@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green05"
+    android:orientation="vertical"
     android:padding="@dimen/widget_margin"
     >
 
@@ -9,35 +11,85 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_text_default_material_dark"
+        android:padding="2dp"
         >
+
+        <ImageView
+            android:src="@drawable/ic_launcher"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="2dp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:id="@+id/widget_header"
+            android:text="@string/widget_title"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:textColor="@color/material_grey_800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/widget_home_team"
-            android:text="Home"
+            android:text="@string/widget_home"
+            android:textSize="@dimen/abc_text_size_small_material"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_height="match_parent"
             />
 
         <TextView
             android:id="@+id/widget_score"
-            android:text="0 - 0"
+            android:text="@string/widget_score"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_height="match_parent"
             />
 
         <TextView
             android:id="@+id/widget_away_team"
-            android:text="Away"
+            android:text="@string/widget_away"
+            android:textSize="@dimen/abc_text_size_small_material"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_height="match_parent"
             />
 
     </LinearLayout>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/widget_query_info"
+        android:text="@string/widget_query_info"
+        android:textSize="@dimen/abc_text_size_small_material"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
