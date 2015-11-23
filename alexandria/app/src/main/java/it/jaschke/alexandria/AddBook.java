@@ -1,7 +1,6 @@
 package it.jaschke.alexandria;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,26 +9,34 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import it.jaschke.alexandria.data.AlexandriaContract;
 import it.jaschke.alexandria.services.BookService;
 import it.jaschke.alexandria.services.DownloadImage;
+import it.jaschke.alexandria.zxing.IntentIntegrator;
+import it.jaschke.alexandria.zxing.IntentResult;
 
 
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
-    private EditText ean;
-    private final int LOADER_ID = 1;
+    private static final String TAG = "ADD_BOOK";
+    private static final String TAG_INTENT = "INTENT_TO_SCAN_ACTIVITY";
+
     private View rootView;
+    private TextView network_indicator;
+    private EditText ean;
+    private Button scan_button;
+
+    private final int LOADER_ID = 1;
     private final String EAN_CONTENT="eanContent";
     private static final String SCAN_FORMAT = "scanFormat";
     private static final String SCAN_CONTENTS = "scanContents";
@@ -54,7 +61,17 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
+
+        network_indicator = (TextView) rootView.findViewById(R.id.network_indicator);
         ean = (EditText) rootView.findViewById(R.id.ean);
+        scan_button = (Button) rootView.findViewById(R.id.scan_button);
+
+        if (Utilities.isNetworkAvailable(getActivity())) {
+            network_indicator.setVisibility(View.GONE);
+        } else {
+            ean.setVisibility(View.GONE);
+            scan_button.setVisibility(View.GONE);
+        }
 
         ean.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,12 +99,17 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 Intent bookIntent = new Intent(getActivity(), BookService.class);
                 bookIntent.putExtra(BookService.EAN, ean);
                 bookIntent.setAction(BookService.FETCH_BOOK);
-                getActivity().startService(bookIntent);
-                AddBook.this.restartLoader();
+                if (Utilities.isNetworkAvailable(getActivity())) {
+                    getActivity().startService(bookIntent);
+                    AddBook.this.restartLoader();
+                } else {
+                    Toast.makeText(getActivity(), "No Network", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        rootView.findViewById(R.id.scan_button).setOnClickListener(new View.OnClickListener() {
+
+        scan_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // This is the callback method that the system will invoke when your button is
@@ -96,12 +118,16 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 // Hint: Use a Try/Catch block to handle the Intent dispatch gracefully, if you
                 // are using an external app.
                 //when you're done, remove the toast below.
+
+/*
                 Context context = getActivity();
                 CharSequence text = "This button should let you scan a book for its barcode!";
                 int duration = Toast.LENGTH_SHORT;
-
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+*/
+
+                launchScanningViaIntent();
 
             }
         });
@@ -132,7 +158,41 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         return rootView;
     }
 
-    private void restartLoader(){
+
+    public void launchScanningViaIntent() {
+        Log.d(TAG, "launchScanningViaIntent");
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.initiateScan();
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d(TAG, "onActivityResult");
+
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (scanResult != null) {
+
+            Log.d(TAG, scanResult.getContents());
+            // Toast.makeText(getActivity(), scanResult.getContents(), Toast.LENGTH_SHORT).show();
+
+            ean.setText(scanResult.getContents());
+
+            Intent bookIntent = new Intent(getActivity(), BookService.class);
+            bookIntent.putExtra(BookService.EAN, scanResult.getContents());
+            bookIntent.setAction(BookService.FETCH_BOOK);
+            if (Utilities.isNetworkAvailable(getActivity())) {
+                getActivity().startService(bookIntent);
+                AddBook.this.restartLoader();
+            }
+        }
+    }
+
+    private void restartLoader() {
+        Log.d(TAG, "restartLoader");
         getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
@@ -168,7 +228,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         ((TextView) rootView.findViewById(R.id.bookSubTitle)).setText(bookSubTitle);
 
         String authors = data.getString(data.getColumnIndex(AlexandriaContract.AuthorEntry.AUTHOR));
-        String[] authorsArr = authors.split(",");
+        String[] authorsArr = authors.split(","); // Possible crash point
         ((TextView) rootView.findViewById(R.id.authors)).setLines(authorsArr.length);
         ((TextView) rootView.findViewById(R.id.authors)).setText(authors.replace(",","\n"));
         String imgUrl = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.IMAGE_URL));
