@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,11 @@ import java.util.Date;
  */
 public class PagerFragment extends Fragment
 {
-    public static final int NUM_PAGES = 5;
+    public static final int NUM_PAGES = 7;
     public ViewPager mPagerHandler;
     private myPageAdapter mPagerAdapter;
-    private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
+    private MainScreenFragment[] viewFragments = new MainScreenFragment[7];
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -32,7 +34,7 @@ public class PagerFragment extends Fragment
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0;i < NUM_PAGES;i++)
         {
-            Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
+            Date fragmentdate = new Date(System.currentTimeMillis()+((i-3)*86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
             viewFragments[i] = new MainScreenFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
@@ -41,11 +43,14 @@ public class PagerFragment extends Fragment
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
         return rootView;
     }
+
+
     private class myPageAdapter extends FragmentStatePagerAdapter
     {
+
         @Override
-        public Fragment getItem(int i)
-        {
+        public Fragment getItem(int i) {
+            Log.d("PAGER_FRAG", "getItem" + i);
             return viewFragments[i];
         }
 
@@ -55,16 +60,19 @@ public class PagerFragment extends Fragment
             return NUM_PAGES;
         }
 
+
         public myPageAdapter(FragmentManager fm)
         {
             super(fm);
         }
+
         // Returns the page title for the top indicator
         @Override
-        public CharSequence getPageTitle(int position)
-        {
-            return getDayName(getActivity(),System.currentTimeMillis()+((position-2)*86400000));
+        public CharSequence getPageTitle(int position) {
+            Log.d("PAGER_FRAG", "getPageTitle" + position);
+            return getDayName(getActivity(),System.currentTimeMillis()+((position-3)*86400000));
         }
+
         public String getDayName(Context context, long dateInMillis) {
             // If the date is today, return the localized version of "Today" instead of the actual
             // day name.
@@ -92,4 +100,5 @@ public class PagerFragment extends Fragment
             }
         }
     }
+
 }
