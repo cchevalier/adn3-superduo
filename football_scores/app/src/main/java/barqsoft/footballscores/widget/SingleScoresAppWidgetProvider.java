@@ -56,14 +56,14 @@ public class SingleScoresAppWidgetProvider extends AppWidgetProvider {
 
 
         //
-        //  query based on match_day
+        //  query (1) based on match_day
         //
         uri = DatabaseContract.scores_table.buildScoreWithDate();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Date tenDaysAgo = new Date(System.currentTimeMillis() - 10 * 86400000);
-        Date twoDaysAgo = new Date(System.currentTimeMillis() - 3 * 86400000);
+        Date twoDaysAgo = new Date(System.currentTimeMillis() - 2* 86400000);
         Date yesterday  = new Date(System.currentTimeMillis() - 86400000);
         Date today      = new Date(System.currentTimeMillis());
 
@@ -73,7 +73,7 @@ public class SingleScoresAppWidgetProvider extends AppWidgetProvider {
 
 /*
         //
-        // query based on league
+        // query (2) based on league
         //
         uri = DatabaseContract.scores_table.buildScoreWithLeague();
         selectionArgs[0] = "396";
@@ -127,6 +127,7 @@ public class SingleScoresAppWidgetProvider extends AppWidgetProvider {
 
             if (cursor != null) {
 
+                // Cycle through query results
                 if (!cursor.isAfterLast()) {
                     Log.d(TAG, "onUpdate: " + i + " " + cursor.getString(COL_HOME));
                     remoteViews.setTextViewText(R.id.widget_home_team, cursor.getString(COL_HOME));
@@ -143,6 +144,7 @@ public class SingleScoresAppWidgetProvider extends AppWidgetProvider {
                     cursor.moveToNext();
 
                 } else {
+                    // No results left
                     remoteViews.setViewVisibility(R.id.widget_home_team, View.GONE);
                     remoteViews.setViewVisibility(R.id.widget_score, View.GONE);
                     remoteViews.setViewVisibility(R.id.widget_away_team, View.GONE);
@@ -150,6 +152,7 @@ public class SingleScoresAppWidgetProvider extends AppWidgetProvider {
                 }
 
             } else {
+                // No results at all
                 remoteViews.setViewVisibility(R.id.widget_home_team, View.GONE);
                 remoteViews.setViewVisibility(R.id.widget_score, View.GONE);
                 remoteViews.setViewVisibility(R.id.widget_away_team, View.GONE);
