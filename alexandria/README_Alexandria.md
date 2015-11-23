@@ -21,6 +21,8 @@ by CChevalier, October 2015.
 27/10/2015: First implementation using [ZXing / Scanning via intent](https://github.com/zxing/zxing/wiki/Scanning-Via-Intent)    
 - require or will install ZXing bbarcode scanner at first launch  
 - IntentIntegrator.java: Change: import android.app.Fragment to: import android.support.v4.app.Fragment;  
+
+Tested on my Moto G 1st Gen.
  
 
    
