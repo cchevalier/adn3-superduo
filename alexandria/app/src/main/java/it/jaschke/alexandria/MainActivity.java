@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import it.jaschke.alexandria.api.Callback;
@@ -160,9 +159,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
+/*
+    // Custom back button method (to be removed as per Android Guidelines)
     public void goBack(View view){
         getSupportFragmentManager().popBackStack();
     }
+*/
 
     private boolean isTablet() {
         return (getApplicationContext().getResources().getConfiguration().screenLayout
