@@ -58,34 +58,34 @@ public class Utilies
                 return res.getString(R.string.unknown_league);
         }
     }
-    public static String getMatchDay(int match_day,int league_num)
+    public static String getMatchDay(Resources res, int match_day,int league_num)
     {
         if(league_num == CHAMPIONS_LEAGUE)
         {
             if (match_day <= 6)
             {
-                return "Group Stages, Matchday : "+ String.valueOf(match_day);
+                return res.getString(R.string.matchday_cl_group_stage) + String.valueOf(match_day);
             }
             else if(match_day == 7 || match_day == 8)
             {
-                return "First Knockout round";
+                return res.getString(R.string.matchday_cl_round_of_16);
             }
             else if(match_day == 9 || match_day == 10)
             {
-                return "QuarterFinal";
+                return res.getString(R.string.matchday_cl_quarter_final);
             }
             else if(match_day == 11 || match_day == 12)
             {
-                return "SemiFinal";
+                return res.getString(R.string.matchday_cl_semi_final);
             }
             else
             {
-                return "Final";
+                return res.getString(R.string.matchday_cl_final);
             }
         }
         else
         {
-            return "Matchday : " + String.valueOf(match_day);
+            return res.getString(R.string.matchday) + String.valueOf(match_day);
         }
     }
 
