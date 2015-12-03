@@ -2,7 +2,12 @@
 
 ## Football-Scores app
 
-by CChevalier, October 2015.
+by CChevalier, October-December 2015.
+
+### Changes after first submission  
+- Add contentDescription to share button    
+- Add translatable feature to dummy_data  
+- Move some hardcoded strings to strings.xml    
 
 
 ### User Feedback
