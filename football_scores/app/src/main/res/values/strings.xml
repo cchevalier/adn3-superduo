@@ -16,11 +16,13 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
 
+<!--
     <string name="champions_league">UEFA Champions League</string>
     <string name="bundesliga">Bundesliga</string>
     <string name="premierleague">Premier League</string>
     <string name="primeradivison">Primera Division</string>
     <string name="seriaa">Serie A</string>
+-->
 
     <string name="group_stage_text">Group stages</string>
     <string name="first_knockout_round">First knockout round</string>
@@ -53,5 +55,20 @@
     <string name="widget_query_info">No game</string>
 
     <string name="widget_arsenal">Arsenal FC</string>
+
+
+    <string name="bundesliga_1">BUNDESLIGA 1</string>
+    <string name="bundesliga_2">BUNDESLIGA 2</string>
+    <string name="bundesliga_3">BUNDESLIGA 3</string>
+    <string name="ligue_1">LIGUE 1</string>
+    <string name="ligue_2">LIGUE 2</string>
+    <string name="premier_league">PREMIER LEAGUE</string>
+    <string name="primera_division">PRIMERA DIVISION</string>
+    <string name="segunda_division">SEGUNDA DIVISION</string>
+    <string name="serie_a">SERIE A</string>
+    <string name="primera_liga">PRIMERA LIGA</string>
+    <string name="eredivisie">EREDIVISIE</string>
+    <string name="uefa_champions_league">CHAMPIONS LEAGUE</string>
+    <string name="unknown_league">Unknown League</string>
 
 </resources>
