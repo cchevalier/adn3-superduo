@@ -2,8 +2,12 @@
 
 ## Alexandria app
 
-by CChevalier, October 2015.
+by CChevalier, October-December 2015.
 
+### Changes after first submission  
+- Fix crash on screen rotation  
+- Fix crash when a book doesn't have an author  
+- Remove custom back button  
 
 ### User Feedback
 
