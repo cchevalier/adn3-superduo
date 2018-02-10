@@ -146,9 +146,9 @@ public class myFetchService extends IntentService
         // be updated. Feel free to use the codes
         final String BUNDESLIGA1 = "394";
         final String BUNDESLIGA2 = "395";
-        final String LIGUE1 = "396";
-        final String LIGUE2 = "397";
-        final String PREMIER_LEAGUE = "398";
+//        final String LIGUE1 = "450";
+//        final String LIGUE2 = "451";
+//        final String PREMIER_LEAGUE = "445";
         final String PRIMERA_DIVISION = "399";
         final String SEGUNDA_DIVISION = "400";
         final String SERIE_A = "401";
@@ -156,6 +156,11 @@ public class myFetchService extends IntentService
         final String Bundesliga3 = "403";
         final String EREDIVISIE = "404";
         final String CHAMPIONS_LEAGUE = "405";
+
+         // Season 2017
+        final String LIGUE1 = "450";
+        final String LIGUE2 = "451";
+        final String PREMIER_LEAGUE = "445";
 
 
         final String SEASON_LINK = "http://api.football-data.org/alpha/soccerseasons/";
